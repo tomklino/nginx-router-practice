@@ -1,0 +1,30 @@
+version: '3.0'
+services:
+  nginx:
+    image: "nginx:alpine"
+    volumes:
+      - ./nginx-conf:/etc/nginx/
+    ports:
+      - "9999:80"
+  dummy_one:
+    image: "node:alpine"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - "DUMMY_PORT=6464"
+      - "DUMMY_NAME=dummy_one"
+    command:
+      "node app"
+    volumes:
+      - ./dummy-nodejs-server:/home/node/app
+  dummy_two:
+    image: "node:alpine"
+    user: "node"
+    working_dir: /home/node/app
+    environment:
+      - "DUMMY_PORT=6464"
+      - "DUMMY_NAME=dummy_two"
+    command:
+      "node app"
+    volumes:
+      - ./dummy-nodejs-server:/home/node/app
