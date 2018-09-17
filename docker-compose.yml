@@ -13,10 +13,12 @@ services:
     environment:
       - "DUMMY_PORT=6464"
       - "DUMMY_NAME=dummy_one"
+      - "WWW_DIR=/var/www"
     command:
       "node app"
     volumes:
       - ./dummy-nodejs-server:/home/node/app
+      - ./www:/var/www
   dummy_two:
     image: "node:alpine"
     user: "node"
