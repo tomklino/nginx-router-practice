@@ -13,9 +13,10 @@ const simpleRequestHandler = (request, response) => {
 }
 
 const fileServer = (request, response) => {
-  console.log(request.url)
+  const { url } = request;
+  console.log(url)
   fs.readFile(
-    path.join(www_dir, request.url),
+    path.join(www_dir, url[url.length - 1] === '/' ? url + "/index.html" : url),
     {encoding: "utf8"},
     (e, data) => {
       if(e) {
@@ -24,6 +25,7 @@ const fileServer = (request, response) => {
           response.end("404 not found");
           return;
         }
+        console.error(e.code)
         response.statusCode = 500;
         response.end("Internal server error")
         return;
